@@ -25,11 +25,16 @@ def main():
     while len(expression) > 1:
         for i in range(len(expression)):
             if i < (len(expression) - 2):
-                verify_operator_OR(i)
-                verify_operator_AND(i)
-                print_list_formated(expression)
-                
+                finded_or = verify_operator_OR(i)
+                if finded_or == True:
+                    print_list_formated(expression)
+            if i < (len(expression) - 2):
+                finded_and = verify_operator_AND(i)
+                if finded_and == True:
+                    print_list_formated(expression)
     print_game_result(user_answer)
+                
+    
 
 
 def remove_3_in_sequence_from_list(my_list, first_index):
@@ -51,15 +56,21 @@ def verify_operator_OR(position):
     if expression[position] == true and expression[position+1] == op_or and expression[position+2] == true:
         remove_3_in_sequence_from_list(expression, position)
         insert_1_in_list(expression, position, true)
+        return True
     elif expression[position] == false and expression[position+1] == op_or and expression[position+2] == false:
         remove_3_in_sequence_from_list(expression, position)
         insert_1_in_list(expression, position, false)
+        return True
     elif expression[position] == true and expression[position+1] == op_or and expression[position+2] == false:
         remove_3_in_sequence_from_list(expression, position)
         insert_1_in_list(expression, position, true)
+        return True
     elif expression[position] == false and expression[position+1] == op_or and expression[position+2] == true:
         remove_3_in_sequence_from_list(expression, position)
         insert_1_in_list(expression, position, true)
+        return True
+    else: 
+        return False
 
 
 def verify_operator_AND(position):
@@ -67,15 +78,21 @@ def verify_operator_AND(position):
     if expression[position] == true and expression[position+1] == op_and and expression[position+2] == true:
         remove_3_in_sequence_from_list(expression, position)
         insert_1_in_list(expression, position, true)
+        return True
     elif expression[position] == false and expression[position+1] == op_and and expression[position+2] == false:
         remove_3_in_sequence_from_list(expression, position)
         insert_1_in_list(expression, position, false)
+        return True
     elif expression[position] == true and expression[position+1] == op_and and expression[position+2] == false:
         remove_3_in_sequence_from_list(expression, position)
         insert_1_in_list(expression, position, false)
+        return True
     elif expression[position] == false and expression[position+1] == op_and and expression[position+2] == true:
         remove_3_in_sequence_from_list(expression, position)
         insert_1_in_list(expression, position, false)
+        return True
+    else :
+        return False
 
 
 def print_game_result(user_answer):
