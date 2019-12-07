@@ -23,12 +23,10 @@ def main():
     print('\n')
 
     print_list_formated(expression)
+
+    verify_operator_NOT_loop(expression)
+
     while len(expression) > 1:
-        for i in range(len(expression)):
-            if i < (len(expression) - 1):
-                finded_not = verify_operator_NOT(i, expression)
-                if finded_not == True:
-                    print_list_formated(expression)
         for i in range(len(expression)):
             if i < (len(expression) - 2):
                 finded_or = verify_operator_OR(i, expression)
@@ -47,7 +45,7 @@ def generate_expression(level):
         level += 1
 
     expression = []
-    booleans = [true, false]
+    booleans = [false, true]
     logical_operators = [[op_and, op_or], [op_not]]
 
     for i in range(level):  # Even Number
@@ -73,18 +71,29 @@ def insert_in_list(my_list, index, value, quantity_to_insert):
 def print_list_formated(my_list):
     print(' '.join(my_list))
 
+
+def verify_operator_NOT_loop(expression):
+    while True:
+        for i in range(len(expression)):
+            if i < (len(expression) - 1):
+                finded_not = verify_operator_NOT(i, expression)
+                if finded_not == True:
+                    print_list_formated(expression)
+        if not op_not in expression:
+            break
+
+
 def verify_operator_NOT(position, expression):
     if expression[position] == op_not and expression[position+1] == true:
         remove_from_list(expression, position, 2)
         insert_in_list(expression, position, false, 1)
         return True
-    elif expression[position] == false and expression[position+1] == false:
+    elif expression[position] == op_not and expression[position+1] == false:
         remove_from_list(expression, position, 2)
         insert_in_list(expression, position, true, 1)
         return True
     else:
         return False
-
 
 
 def verify_operator_OR(position, expression):
