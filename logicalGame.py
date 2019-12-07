@@ -15,14 +15,20 @@ op_or = 'or'
 
 def main():
     random.seed()
-    print("\nSolve this:")
-    expression = generate_expression(1)
+    level = int(input("Choose a level (integer number): "))
+    expression = generate_expression(level)
+    print("\nSolve:")
     print_list_formated(expression)
     user_answer = input("What's the answer (true/false)? ")
     print('\n')
 
     print_list_formated(expression)
     while len(expression) > 1:
+        for i in range(len(expression)):
+            if i < (len(expression) - 1):
+                finded_not = verify_operator_NOT(i, expression)
+                if finded_not == True:
+                    print_list_formated(expression)
         for i in range(len(expression)):
             if i < (len(expression) - 2):
                 finded_or = verify_operator_OR(i, expression)
@@ -36,12 +42,15 @@ def main():
 
 
 def generate_expression(level):
-    #expression = [true, op_or, false, op_and, true, op_and, true, op_or, true]
+
+    if level % 2 == 0:
+        level += 1
+
     expression = []
     booleans = [true, false]
     logical_operators = [[op_and, op_or], [op_not]]
 
-    for i in range(9):  # Even Number
+    for i in range(level):  # Even Number
         if i % 2 == 0:
             expression.append(random.choice(booleans))
         else:
@@ -52,22 +61,33 @@ def generate_expression(level):
 
 
 def remove_from_list(my_list, first_index, quantity_to_remove):
-    for i in range(quantity_to_remove):
+    for _ in range(quantity_to_remove):
         my_list.pop(first_index)
-        print(i)
 
 
 def insert_in_list(my_list, index, value, quantity_to_insert):
-    for i in range(quantity_to_insert):
+    for _ in range(quantity_to_insert):
         my_list.insert(index, value)
 
 
 def print_list_formated(my_list):
     print(' '.join(my_list))
 
+def verify_operator_NOT(position, expression):
+    if expression[position] == op_not and expression[position+1] == true:
+        remove_from_list(expression, position, 2)
+        insert_in_list(expression, position, false, 1)
+        return True
+    elif expression[position] == false and expression[position+1] == false:
+        remove_from_list(expression, position, 2)
+        insert_in_list(expression, position, true, 1)
+        return True
+    else:
+        return False
+
+
 
 def verify_operator_OR(position, expression):
-    # OPERADOR OR
     if expression[position] == true and expression[position+1] == op_or and expression[position+2] == true:
         remove_from_list(expression, position, 3)
         insert_in_list(expression, position, true, 1)
@@ -89,7 +109,6 @@ def verify_operator_OR(position, expression):
 
 
 def verify_operator_AND(position, expression):
-    # OPERADOR AND
     if expression[position] == true and expression[position+1] == op_and and expression[position+2] == true:
         remove_from_list(expression, position, 3)
         insert_in_list(expression, position, true, 1)
