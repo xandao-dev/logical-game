@@ -39,24 +39,27 @@ def generate_expression(level):
     #expression = [true, op_or, false, op_and, true, op_and, true, op_or, true]
     expression = []
     booleans = [true, false]
-    logical_operators = [op_and, op_or]
+    logical_operators = [[op_and, op_or], [op_not]]
 
-    for i in range(7):  # Even Number
+    for i in range(9):  # Even Number
         if i % 2 == 0:
             expression.append(random.choice(booleans))
         else:
-            expression.append(random.choice(logical_operators))
+            expression.append(random.choice(logical_operators[0]))
+            if random.choice(logical_operators[1]+[None]) != None:
+                expression.append(logical_operators[1][0])
     return expression
 
 
-def remove_3_in_sequence_from_list(my_list, first_index):
-    my_list.pop(first_index)
-    my_list.pop(first_index)
-    my_list.pop(first_index)
+def remove_from_list(my_list, first_index, quantity_to_remove):
+    for i in range(quantity_to_remove):
+        my_list.pop(first_index)
+        print(i)
 
 
-def insert_1_in_list(my_list, index, value):
-    my_list.insert(index, value)
+def insert_in_list(my_list, index, value, quantity_to_insert):
+    for i in range(quantity_to_insert):
+        my_list.insert(index, value)
 
 
 def print_list_formated(my_list):
@@ -66,20 +69,20 @@ def print_list_formated(my_list):
 def verify_operator_OR(position, expression):
     # OPERADOR OR
     if expression[position] == true and expression[position+1] == op_or and expression[position+2] == true:
-        remove_3_in_sequence_from_list(expression, position)
-        insert_1_in_list(expression, position, true)
+        remove_from_list(expression, position, 3)
+        insert_in_list(expression, position, true, 1)
         return True
     elif expression[position] == false and expression[position+1] == op_or and expression[position+2] == false:
-        remove_3_in_sequence_from_list(expression, position)
-        insert_1_in_list(expression, position, false)
+        remove_from_list(expression, position, 3)
+        insert_in_list(expression, position, false, 1)
         return True
     elif expression[position] == true and expression[position+1] == op_or and expression[position+2] == false:
-        remove_3_in_sequence_from_list(expression, position)
-        insert_1_in_list(expression, position, true)
+        remove_from_list(expression, position, 3)
+        insert_in_list(expression, position, true, 1)
         return True
     elif expression[position] == false and expression[position+1] == op_or and expression[position+2] == true:
-        remove_3_in_sequence_from_list(expression, position)
-        insert_1_in_list(expression, position, true)
+        remove_from_list(expression, position, 3)
+        insert_in_list(expression, position, true, 1)
         return True
     else:
         return False
@@ -88,20 +91,20 @@ def verify_operator_OR(position, expression):
 def verify_operator_AND(position, expression):
     # OPERADOR AND
     if expression[position] == true and expression[position+1] == op_and and expression[position+2] == true:
-        remove_3_in_sequence_from_list(expression, position)
-        insert_1_in_list(expression, position, true)
+        remove_from_list(expression, position, 3)
+        insert_in_list(expression, position, true, 1)
         return True
     elif expression[position] == false and expression[position+1] == op_and and expression[position+2] == false:
-        remove_3_in_sequence_from_list(expression, position)
-        insert_1_in_list(expression, position, false)
+        remove_from_list(expression, position, 3)
+        insert_in_list(expression, position, false, 1)
         return True
     elif expression[position] == true and expression[position+1] == op_and and expression[position+2] == false:
-        remove_3_in_sequence_from_list(expression, position)
-        insert_1_in_list(expression, position, false)
+        remove_from_list(expression, position, 3)
+        insert_in_list(expression, position, false, 1)
         return True
     elif expression[position] == false and expression[position+1] == op_and and expression[position+2] == true:
-        remove_3_in_sequence_from_list(expression, position)
-        insert_1_in_list(expression, position, false)
+        remove_from_list(expression, position, 3)
+        insert_in_list(expression, position, false, 1)
         return True
     else:
         return False
