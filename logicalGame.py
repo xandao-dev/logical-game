@@ -1,7 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+__version__ = '1.1'
+__author__ = 'Alexandre Calil Martins Fonseca'
+
 """
-@author: xandao6
+TODO: Add color
+TODO: Add a new level logic
+
+TODO: Add new expressions
+def nand (a,b):
+    return not (a and b)
+def nor (a,b):
+    return not (a or b)
+    
+    xor
+    xnor
+    
+    *xand
+    *xnand
 """
 
 import random
