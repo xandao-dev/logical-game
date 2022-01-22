@@ -3,23 +3,6 @@
 __version__ = '1.1'
 __author__ = 'Alexandre Calil Martins Fonseca'
 
-"""
-TODO: Add color
-TODO: Add a new level logic
-
-TODO: Add new expressions
-def nand (a,b):
-    return not (a and b)
-def nor (a,b):
-    return not (a or b)
-    
-    xor
-    xnor
-    
-    *xand
-    *xnand
-"""
-
 import random
 
 true = 'True'
@@ -45,18 +28,17 @@ def main():
     while len(expression) > 1:
         for i in range(len(expression)):
             if i < (len(expression) - 2):
-                finded_or = verify_operator_OR(i, expression)
-                if finded_or == True:
+                found_or = verify_operator_OR(i, expression)
+                if found_or == True:
                     print_list_formated(expression)
             if i < (len(expression) - 2):
-                finded_and = verify_operator_AND(i, expression)
-                if finded_and == True:
+                found_and = verify_operator_AND(i, expression)
+                if found_and == True:
                     print_list_formated(expression)
     print_game_result(user_answer, expression)
 
 
 def generate_expression(level):
-
     if level % 2 == 0:
         level += 1
 
@@ -92,8 +74,8 @@ def verify_operator_NOT_loop(expression):
     while True:
         for i in range(len(expression)):
             if i < (len(expression) - 1):
-                finded_not = verify_operator_NOT(i, expression)
-                if finded_not == True:
+                found_not = verify_operator_NOT(i, expression)
+                if found_not == True:
                     print_list_formated(expression)
         if not op_not in expression:
             break
